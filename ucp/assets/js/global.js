@@ -768,18 +768,28 @@ var VoicemailC = UCPMC.extend({
 		return (typeof UCP.durationFormatter === 'function') ? UCP.durationFormatter(value) : sprintf(_("%s seconds"), value);
 	},
 	openTranscription: function (value, row, index) {
-		//CREATE TRANSCRIPTION HTML PAGE
-		let msg = `<h1>Voicemail from ${row.callerid}</h1>`;
-		msg += `<b>Folder:</b> ${row.folder}<br>`;
-		msg += `<b>Box:</b> ${row.origmailbox}<br>`;
-		msg += `<h3>Transcription</h3><br>${value}`
-		let b = new Blob([msg], { type: "text/html" });
-
-		//CREATE SHORT DESCRIPTION OF VOICEMAIL TEXT
 		let descript = value.substring(0, 50);
 		if (descript.length != value.length)
-			descript += `...<br><br><a href="${URL.createObjectURL(b)}" target="_blank" class="btn btn-primary" style="color:white;">Open</a>`;
-		return descript;
+			descript += `...`;
+
+		return `
+		<div id="faq${index}" role="tablist" aria-multiselectable="true">
+
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="questionOne${index}">
+					<h5 class="panel-title">
+						<a data-toggle="collapse" data-parent="#faq${index}" href="#answerOne${index}" aria-expanded="false" aria-controls="answerOne${index}">
+							${descript}
+						</a>
+					</h5>
+				</div>
+				<div id="answerOne${index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="questionOne${index}" style="width:100%">
+				<div class="panel-body">
+					${value}
+				</div>
+			</div>
+		</div>
+		`;
 	},
 	controlFormatter: function (value, row, index) {
 		var html = '<a class="listen" alt="' + _('Listen on your handset') + '" data-id="' + row.msg_id + '"><i class="fa fa-phone"></i></a>' +
