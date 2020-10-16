@@ -59,6 +59,7 @@
 						<th data-checkbox="true"></th>
 						<th data-field="origtime" data-sortable="true" data-formatter="UCP.Modules.Voicemail.dateFormatter"><?php echo _("Date/Time")?></th>
 						<th data-field="callerid" data-sortable="true"><?php echo _("CID")?></th>
+						<th data-field="transcription" data-sortable="false" data-formatter="UCP.Modules.Voicemail.openTranscription"><?php echo _("Transcription")?></th>
 						<?php if($showPlayback) { ?>
 							<th data-field="playback" data-width="40%" data-formatter="UCP.Modules.Voicemail.playbackFormatter"><?php echo _("Playback")?></th>
 						<?php } ?>

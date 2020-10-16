@@ -1,3 +1,5 @@
 assets/less/cache/**
 ucp/assets/less/cache/**
 assets/less/cache/**
+.vscode/ftp-sync.json
+.vscode/launch.json

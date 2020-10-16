@@ -226,7 +226,7 @@ class Voicemail extends Modules{
 	* @return bool True if pass
 	*/
 	public function ajaxRequest($command, $settings) {
-		switch($command) {	
+		switch($command) {
 			case 'grid':
 			case 'listen':
 			case 'moveToFolder':
@@ -316,6 +316,12 @@ class Voicemail extends Modules{
 					foreach($data['messages'] as $message) {
 						$message['callerid'] = htmlentities($message['callerid'],ENT_COMPAT | ENT_HTML401, "UTF-8");
 						$message['callerid'] = preg_replace("/&lt;(.*)&gt;/i","&lt;<span class='clickable' data-type='number' data-primary='phone'>$1</span>&gt;",$message['callerid']);
+						if(isset($message['transcription'])){
+							$message['transcription'] = htmlentities($message['transcription'],ENT_COMPAT | ENT_HTML401, "UTF-8");
+							$message['transcription'] = preg_replace("/&lt;(.*)&gt;/i","&lt;<span class='clickable' data-type='number' data-primary='phone'>$1</span>&gt;",$message['transcription']);
+						}else{
+							$message['transcription'] = 'N/A';
+						}
 						$messages[] = $message;
 					}
 				}
